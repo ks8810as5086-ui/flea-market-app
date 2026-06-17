@@ -1,0 +1,20 @@
+[90m= [39m[34;4mIlluminate\Database\Eloquent\Collection[39;24m {#8369
+    [34mall[39m: [
+      [34;4mApp\Models\Item[39;24m {#7269
+        [34mid[39m: [35m1[39m,
+        [34muser_id[39m: [35m3[39m,
+        [34mname[39m: [32m"[39m[32mnecessitatibus[39m[32m"[39m,
+        [34mimage_path[39m: [32m"[39m[32mdummy.jpg[39m[32m"[39m,
+        [34mbrand_name[39m: [32m"[39m[32mKohler-Jacobi[39m[32m"[39m,
+        [34mdescription[39m: [32m"[39m[32mTenetur perspiciatis delectus deleniti beatae aut id. Suscipit fuga at aut et. Sed nihil consequatur et minus porro. Dolorem minus officia qui at libero. Assumenda libero sed error iusto numquam ea voluptates.[39m[32m"[39m,
+        [34mcondition[39m: [35m1[39m,
+        [34mprice[39m: [35m100[39m,
+        [34mcreated_at[39m: [32m"[39m[32m2026-06-17 11:46:48[39m[32m"[39m,
+        [34mupdated_at[39m: [32m"[39m[32m2026-06-17 11:46:48[39m[32m"[39m,
+        [34mpivot[39m: [34;4mIlluminate\Database\Eloquent\Relations\Pivot[39;24m {#8372
+          [34mitem_id[39m: [35m1[39m,
+          [34mcategory_id[39m: [35m1[39m,
+        },
+      },
+    ],
+  }
