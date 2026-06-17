@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('favorites', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->foreignId('item_id')
+                ->constrained()
+                ->cascadeOnDelete();
+            //user_id とitem_idの組み合わせを重複禁止
+            $table->unique(['user_id','item_id']);
             $table->timestamps();
         });
     }
