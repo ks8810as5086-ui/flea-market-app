@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('category_id')
                 ->constrained()
                 ->cascadeOnDelete();
-            //item_id と category_id の組み合わせを重複禁止
+            // item_id と category_id の組み合わせを重複禁止
             $table->unique(['item_id', 'category_id']);
             $table->timestamps();
         });
