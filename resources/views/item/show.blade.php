@@ -58,8 +58,11 @@
         <div class="flex">
             <!--左-->
             <div class="w-[690px]">
-                <div class="w-[600px] h-[600px] ml-[45px] mt-[36px]  rounded-[4px] overflow-hidden bg-gray-300">
-
+                <div class="w-[600px] h-[600px] ml-[45px] mt-[36px]  rounded-[4px] overflow-hidden ">
+                    <img 
+                        src="{{ $item->image_path }}" 
+                        alt="{{ $item->name }}"
+                    >
                 </div>
             </div>
             <!--右-->
@@ -68,16 +71,16 @@
                 <div class="w-[570px] h-[273px]">
                 
                     <h1 class="text-[45px] font-bold leading-none">
-                        商品名
+                        {{ $item->name }}
                     </h1>
                 
                     <p class="text-[20px] mt-[8px] leading-none">
-                        ブランド名
+                        {{ $item->brand }}
                     </p>
                 
                     <p class="mt-[28px] leading-none">
                         <span class="text-[30px]">¥</span>
-                        <span class="text-[45px]">47,000</span>
+                        <span class="text-[45px]">{{ number_format($item->price) }}</span>
                         <span class="text-[30px]">（税込）</span>
                     </p>
                 
@@ -90,7 +93,7 @@
                             <img src="{{ asset('img/heart-logo-default.png') }}" alt="いいね" class="w-[50px] h-[50px]">
                     
                             <span class="text-[18px] leading-none">
-                                3
+                                {{ $item->favorites_count  }}
                             </span>
                     
                         </div>
@@ -101,7 +104,7 @@
                             <img src="{{ asset('img/balloon-logo.png') }}" alt="コメント" class="w-[40px] h-[40px]">
                     
                             <span class="text-[18px] leading-none mt-[4px]">
-                                1
+                                {{ $item->comments_count  }}
                             </span>
                     
                         </div>
@@ -134,10 +137,7 @@
                     </h2>
                 
                     <p class="mt-[40px] text-[24px] font-normal leading-normal">
-                        商品説明が入ります。
-                        商品説明が入ります。
-                        商品説明が入ります。
-                        商品説明が入ります。
+                        {{ $item->description }}
                     </p>
                 
                 </div>
@@ -150,27 +150,24 @@
                     </h2>
                 
                     <!-- カテゴリー -->
-                    <div class="flex items-center mt-[40px]">
-                    
+                    <div class="flex gap-[16px]">
                         <span class="w-[214px] text-[24px] font-bold">
                             カテゴリー
                         </span>
-                    
-                        <div class="flex gap-[16px]">
+                        @foreach($item->categories as $category)
                             <span class="
-                                px-[24px]
-                                h-[30px]
-                                rounded-[15px]
-                                bg-[#D9D9D9]
-                                text-[20px]
-                                flex items-center
-                            ">
-                                洋服
+                                    px-[24px]
+                                    h-[30px]
+                                    rounded-[15px]
+                                    bg-[#D9D9D9]
+                                    text-[20px]
+                                    text-black
+                                    flex items-center
+                                ">
+                                {{ $category->name }}
                             </span>
-                        </div>
-                    
+                        @endforeach
                     </div>
-                    
                     <!-- 商品状態 -->
                     <div class="flex items-center mt-[30px]">
                     
@@ -179,59 +176,76 @@
                         </span>
                     
                         <span class="text-[20px]">
-                            良好
+                            {{ $item->condition_label }}
                         </span>
                     
                     </div>
+                    
                 </div>
                 <!-- コメント -->
                 <div class="w-[570px] mt-[60px]">
-                    
-                    <h2 class="text-[36px] font-bold text-[#5F5F5F]">
-                        コメント（1）
-                    </h2>
-
-                    <!-- コメント1件 -->
-                    <div class="mt-[30px]">
-                    
-                        <!-- ユーザー -->
-                        <div class="flex items-center">
                 
-                            <div class="w-[70px] h-[70px] rounded-full bg-gray-300">
+                    <h2 class="text-[36px] font-bold text-[#5F5F5F]">
+                        コメント（{{ $item->comments_count }}）
+                    </h2>
+                    @foreach ($item->comments as $comment)
+                        <div class="mt-[30px]">
+
+                            <!-- ユーザー -->
+                            <div class="flex items-center">
+
+                                <div class="w-[70px] h-[70px] rounded-full bg-gray-300">
+                                </div>
+
+                                <p class="ml-[18px] text-[30px] font-bold">
+                                    {{ $comment->user->name }}
+                                </p>
+
                             </div>
-                    
-                            <p class="ml-[18px] text-[30px] font-bold">
-                                    ユーザー名
-                            </p>
-                    
+
+                            <!-- コメント本文 -->
+                            <div class="
+                                        w-[570px]
+                                        h-[70px]
+                                        mt-[19px]
+                                        rounded-[5px]
+                                        bg-[#E5E5E5]
+                                        px-[15px]
+                                        flex items-center
+                                    ">
+                                <p class="text-[20px] font-light">
+                                    {{ $comment->content }}
+                                </p>
+                            </div>
+
                         </div>
-                    
+
+                    @endforeach
+                
                         <!-- コメント本文 -->
                         <div class="
-                            w-[570px]
-                            h-[70px]
-                            mt-[19px]
-                            rounded-[5px]
-                            bg-[#E5E5E5]
-                            px-[15px]
-                            flex items-center
-                        ">
+                                            w-[570px]
+                                            h-[70px]
+                                            mt-[19px]
+                                            rounded-[5px]
+                                            bg-[#E5E5E5]
+                                            px-[15px]
+                                            flex items-center
+                                        ">
                             <p class="text-[20px] font-light">
                                 こちらにコメントが入ります。
                             </p>
                         </div>
-                    
+                
                     </div>
+                    <!-- 商品へのコメント -->
+                    <div class="mt-[50px]">
                     
-                </div>
-                <!-- 商品へのコメント -->
-                <div class="mt-[50px]">
-                
-                    <p class="text-[28px] font-bold">
-                        商品へのコメント
-                    </p>
-                
-                    <textarea class="
+                        <p class="text-[28px] font-bold">
+                            商品へのコメント
+                        </p>
+                    
+                        <textarea class="
                                             w-[570px]
                                             h-[246px]
                                             mt-[20px]
@@ -243,27 +257,26 @@
                                             text-[20px]
                                             focus:outline-none
                                         "></textarea>
-                
-                </div>
-                
-                <!-- コメント送信 -->
-                <div class="w-[570px] h-[100px] flex items-center">
-                
-                    <button type="button" class="
-                                            w-[570px]
-                                            h-[56px]
-                                            bg-[#FF5555]
-                                            rounded-[4px]
-                                            text-white
-                                            text-[25px]
-                                            font-bold
-                                        ">
-                        コメントを送信する
-                    </button>
-                </div>
+                    
+                    </div>
+                    
+                    <!-- コメント送信 -->
+                    <div class="w-[570px] h-[100px] flex items-center">
+                    
+                        <button type="button" class="
+                                                                                w-[570px]
+                                                                                h-[56px]
+                                                                                bg-[#FF5555]
+                                                                                rounded-[4px]
+                                                                                text-white
+                                                                                text-[25px]
+                                                                                font-bold
+                                                                            ">
+                            コメントを送信する
+                        </button>
+                    </div>
             </div>
         </div>
-
     </main>
 </body>
 
