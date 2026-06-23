@@ -99,15 +99,19 @@
                     <div class="w-[144px] h-[67px] mt-[40px] flex justify-between">
                     
                         <!-- いいね -->
-                        <div class="flex flex-col items-center">
-                    
-                            <img src="{{ asset('img/heart-logo-default.png') }}" alt="いいね" class="w-[50px] h-[50px]">
-                    
-                            <span class="text-[18px] leading-none">
-                                {{ $item->favorites_count  }}
-                            </span>
-                    
-                        </div>
+                        <form action="{{ route('favorite.toggle', $item) }}" method="POST">
+                            @csrf
+                        
+                            <button type="submit" class="flex flex-col items-center">
+                                <img src="{{ $item->isFavoriteBy(Auth::user())
+    ? asset('img/heart-logo-pink.png')
+    : asset('img/heart-logo-default.png') }}" alt="いいね" class="w-[50px] h-[50px]">
+                        
+                                <span class="text-[18px] leading-none">
+                                    {{ $item->favorites_count }}
+                                </span>
+                            </button>
+                        </form>
                     
                         <!-- コメント -->
                         <div class="flex flex-col items-center">
