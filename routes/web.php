@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ItemController::class, 'index'])->name('item.index');
 Route::get('/item/{item}', [ItemController::class, 'show'])->name('item.show');
+Route::get('/mypage/profile', function () {
+    return view('profile.edit');
+})->middleware('auth')->name('profile.edit');
