@@ -225,7 +225,7 @@
                                         flex items-center
                                     ">
                                 <p class="text-[20px] font-light">
-                                    {{ $comment->content }}
+                                    {{ $comment->comment }}
                                 </p>
                             </div>
 
@@ -233,59 +233,51 @@
 
                     @endforeach
                 
-                        <!-- コメント本文 -->
-                        <div class="
-                                            w-[570px]
-                                            h-[70px]
-                                            mt-[19px]
-                                            rounded-[5px]
-                                            bg-[#E5E5E5]
-                                            px-[15px]
-                                            flex items-center
-                                        ">
-                            <p class="text-[20px] font-light">
-                                こちらにコメントが入ります。
+                    </div>
+                    <form action="{{ route('comment.store', $item) }}" method="POST">
+                        @csrf
+                    
+                        <!-- 商品へのコメント -->
+                        <div class="mt-[50px]">
+                            <p class="text-[28px] font-bold">
+                                商品へのコメント
                             </p>
+                    
+                            <textarea name="comment" class="
+                                    w-[570px]
+                                    h-[246px]
+                                    mt-[20px]
+                                    border
+                                    border-gray-300
+                                    rounded-[5px]
+                                    resize-none
+                                    p-[15px]
+                                    text-[20px]
+                                    focus:outline-none
+                                ">{{ old('comment') }}</textarea>
+                    
+                            @error('comment')
+                                <p class="mt-[8px] text-red-500 text-[16px]">
+                                    {{ $message }}
+                                </p>
+                            @enderror
                         </div>
-                
-                    </div>
-                    <!-- 商品へのコメント -->
-                    <div class="mt-[50px]">
                     
-                        <p class="text-[28px] font-bold">
-                            商品へのコメント
-                        </p>
-                    
-                        <textarea class="
-                                            w-[570px]
-                                            h-[246px]
-                                            mt-[20px]
-                                            border
-                                            border-gray-300
-                                            rounded-[5px]
-                                            resize-none
-                                            p-[15px]
-                                            text-[20px]
-                                            focus:outline-none
-                                        "></textarea>
-                    
-                    </div>
-                    
-                    <!-- コメント送信 -->
-                    <div class="w-[570px] h-[100px] flex items-center">
-                    
-                        <button type="button" class="
-                                                                                w-[570px]
-                                                                                h-[56px]
-                                                                                bg-[#FF5555]
-                                                                                rounded-[4px]
-                                                                                text-white
-                                                                                text-[25px]
-                                                                                font-bold
-                                                                            ">
-                            コメントを送信する
-                        </button>
-                    </div>
+                        <!-- コメント送信 -->
+                        <div class="w-[570px] h-[100px] flex items-center">
+                            <button type="submit" class="
+                                    w-[570px]
+                                    h-[56px]
+                                    bg-[#FF5555]
+                                    rounded-[4px]
+                                    text-white
+                                    text-[25px]
+                                    font-bold
+                                ">
+                                コメントを送信する
+                            </button>
+                        </div>
+                    </form>
             </div>
         </div>
     </main>
