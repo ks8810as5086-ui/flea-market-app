@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +20,8 @@ Route::get('/item/{item}', [ItemController::class, 'show'])->name('item.show');
 Route::get('/mypage/profile', function () {
     return view('profile.edit');
 })->middleware('auth')->name('profile.edit');
+
+Route::middleware('auth')->group(function () {
+    Route::post('/item/{item}/comment', [CommentController::class, 'store'])
+        ->name('comment.store');
+});
