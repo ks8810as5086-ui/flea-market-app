@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FavoriteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,4 +25,7 @@ Route::get('/mypage/profile', function () {
 Route::middleware('auth')->group(function () {
     Route::post('/item/{item}/comment', [CommentController::class, 'store'])
         ->name('comment.store');
+
+    Route::post('/item/{item}/favorite', [FavoriteController::class, 'toggle'])
+        ->name('favorite.toggle');
 });
