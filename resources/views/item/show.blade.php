@@ -36,14 +36,25 @@
 
             <!--ナビ-->
             <div class="w-[463px] flex items-center justify-end gap-[40px]">
-                <a href="#" class="text-[24px] text-white">
-                    ログイン
-                </a>
-
+                @guest
+                    <a href="{{ route('login') }}" class="text-[24px] text-white">
+                        ログイン
+                    </a>
+                @endguest
+            
+                @auth
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="text-[24px] text-white">
+                            ログアウト
+                        </button>
+                    </form>
+                @endauth
+            
                 <a href="#" class="text-[24px] text-white">
                     マイページ
                 </a>
-
+            
                 <a href="#"
                     class="w-[100px] h-[50px] bg-white text-black text-[24px] rounded-[4px] flex items-center justify-center">
                     出品

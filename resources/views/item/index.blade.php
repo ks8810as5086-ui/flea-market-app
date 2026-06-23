@@ -39,11 +39,22 @@
 
             <!--ナビ-->
             <div class="w-[463px] flex items-center justify-end gap-[40px]">
-                <a href="#" 
+                @guest
+                    <a href="{{ route('login') }}" 
                     class="text-[24px] text-white">
-                    ログイン
-                </a>
+                        ログイン
+                    </a>
+                @endguest
 
+                @auth
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="text-[24px] text-white">
+                            ログアウト
+                        </button>
+                    </form>
+                @endauth
+                
                 <a href="#" 
                     class="text-[24px] text-white">
                     マイページ
