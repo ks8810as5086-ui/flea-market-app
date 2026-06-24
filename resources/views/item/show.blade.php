@@ -130,17 +130,11 @@
                 
                 <div class="w-[570px] h-[100px] flex items-center">
                 
-                    <button type="button" class="
-                            w-[570px]
-                            h-[56px]
-                            bg-[#FF5555]
-                            rounded-[4px]
-                            text-white
-                            text-[30px]
-                            font-bold
-                        ">
+                    <a href="{{ route('purchase.show',$item) }}" 
+                        class="w-[570px] h-[56px] bg-[#FF5555] rounded-[4px] text-white text-[30px] font-bold flex items-center justify-center"
+                    >
                         購入手続きへ
-                    </button>
+                    </a>
                 
                 </div>
                 
