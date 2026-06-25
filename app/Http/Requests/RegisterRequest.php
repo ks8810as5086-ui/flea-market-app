@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest
@@ -17,17 +18,18 @@ class RegisterRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            'name' => ['required','max:20'],
-            'email' => ['required','email','uniqe:users,email'],
-            'password' =>['required','min:8','confirmed'],
+            'name' => ['required', 'max:20'],
+            'email' => ['required', 'email', 'uniqe:users,email'],
+            'password' => ['required', 'min:8', 'confirmed'],
         ];
     }
-    public function messages():array
+
+    public function messages(): array
     {
         return [
             'name.required' => 'お名前を入力してください',

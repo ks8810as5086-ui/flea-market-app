@@ -30,7 +30,7 @@ class CreateNewUser implements CreatesNewUsers
                 'email',
                 Rule::unique(User::class),
             ],
-            'password' => ['required','string', 'min:8','confirmed'],],[
+            'password' => ['required', 'string', 'min:8', 'confirmed'], ], [
                 'name.required' => 'お名前を入力してください',
                 'email.required' => 'メールアドレスを入力してください',
                 'email.email' => 'メールアドレスはメール形式で入力してください',

@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class AddressRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,16 +23,9 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ];
-    }
-
-    public function messages(): array
-    {
-        return [
-            'email.required' => 'メールアドレスを入力してください',
-            'password.required' => 'パスワードを入力してください',
+            'postal_code' => ['required', 'regex:/^\d{3}-\d{4}$/'],
+            'address' => ['required'],
+            'building' => ['nullable'],
         ];
     }
 }

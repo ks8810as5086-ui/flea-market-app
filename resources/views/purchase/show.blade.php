@@ -62,6 +62,10 @@
             </div>
         </header>
 
+        @php
+            $purchaseAddress = session('purchase_address.' . $item->id);
+        @endphp
+
     <main class="w-[1512px] mx-auto">
         <div class="flex gap-[95px] px-[80px] pt-[53px]">
 
@@ -109,17 +113,18 @@
                             配送先
                         </h2>
 
-                        <a href="#" 
+                        <a href="{{ route('purchase.address.edit',$item) }}" 
                             class="ml-[580px] text-[20px] text-[#0073CC] font-normal">
                             変更する
                         </a>
                     </div>
 
                     <div class="mt-[35px] ml-[60px] text-[20px] font-semibold">
-                        <p>〒 {{ Auth::user()->postal_code ?? 'XXX-YYYY' }}</p>
+                        <p>〒 {{ $purchaseAddress['postal_code'] ?? Auth::user()->postal_code }}
+                        </p>
                         <p class="mt-[10px]">
-                            {{ Auth::user()->address ?? 'ここには住所と建物が入ります' }}
-                            {{ Auth::user()->building }}
+                            {{ $purchaseAddress['address'] ?? Auth::user()->address }}
+                            {{ $purchaseAddress['building'] ?? Auth::user()->building }}
                         </p>
                     </div>
                 </div>
