@@ -31,7 +31,7 @@ class Purchase extends Model
 
     public function paymentMethodLabel(): string
     {
-        return match ($this->payment_method) {
+        return match ((int) $this->payment_method) {
             1 => 'コンビニ払い',
             2 => 'カード払い',
             default => '選択してください'
