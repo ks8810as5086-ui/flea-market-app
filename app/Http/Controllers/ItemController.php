@@ -12,11 +12,12 @@ class ItemController extends Controller
 
         return view('item.index', compact('items'));
     }
+
     public function show(Item $item)
     {
-        $item->load(['categories','comments.user'])
-            ->loadCount(['favorites','comments']);
+        $item->load(['categories', 'comments.user'])
+            ->loadCount(['favorites', 'comments']);
 
-        return view('item.show',compact('item'));
+        return view('item.show', compact('item'));
     }
 }
