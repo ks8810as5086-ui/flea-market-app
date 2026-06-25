@@ -8,7 +8,7 @@ class ItemController extends Controller
 {
     public function index()
     {
-        $items = Item::all();
+        $items = Item::with('purchase')->get();
 
         return view('item.index', compact('items'));
     }

@@ -39,4 +39,8 @@ Route::middleware('auth')->group(function () {
 
     Route::patch('/purchase/address/{item}', [PurchaseAddressController::class, 'update'])
         ->name('purchase.address.update');
+
+    Route::post('/purchase/{item}', [PurchaseController::class, 'store'])
+        ->name('purchase.store');
+
 });

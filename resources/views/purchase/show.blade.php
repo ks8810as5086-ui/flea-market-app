@@ -67,108 +67,113 @@
         @endphp
 
     <main class="w-[1512px] mx-auto">
-        <div class="flex gap-[95px] px-[80px] pt-[53px]">
+        <form action="{{ route('purchase.store', $item) }}" method="POST">
+            @csrf
 
-            <!-- 左側 -->
-            <div class="w-[805px]">
-
-                <!-- 商品情報 -->
-                <div class="flex">
-                    <img src="{{  $item->image_path }}" 
-                    alt="{{ $item->name }}"
-                    class="w-[178px] h-[178px] object-cover bg-gray-300">
-
-                    <div class="ml-[40px]">
-                        <h1 class="text-[30px] font-bold">
-                            {{ $item->name }}
-                        </h1>
-
-                        <p class="mt-[25px] text-[27px]">
-                            ¥ {{ number_format($item->price) }}
-                        </p>
+            <input type="hidden" name="postal_code" value="{{ $purchaseAddress['postal_code'] ?? Auth::user()->postal_code }}">
+            <input type="hidden" name="address" value="{{ $purchaseAddress['address'] ?? Auth::user()->address }}">
+            <input type="hidden" name="building" value="{{ $purchaseAddress['building'] ?? Auth::user()->building }}">
+            
+            <div class="flex gap-[95px] px-[80px] pt-[53px]">
+                    
+                <!-- 左側 -->
+                <div class="w-[805px]">
+                    
+                    <!-- 商品情報 -->
+                    <div class="flex">
+                        <img src="{{  $item->image_path }}" alt="{{ $item->name }}"
+                            class="w-[178px] h-[178px] object-cover bg-gray-300">
+                    
+                            <div class="ml-[40px]">
+                                <h1 class="text-[30px] font-bold">
+                                    {{ $item->name }}
+                                </h1>
+                    
+                                <p class="mt-[25px] text-[27px]">
+                                    ¥ {{ number_format($item->price) }}
+                                    </p>
+                            </div>
                     </div>
-                </div>
-
-                <hr class="mt-[50px] border-black">
-
-                <!-- 支払い方法 -->
-                <div class="pt-[20px] pl-[35px] h-[160px]">
-                    <h2 class="text-[20px] font-bold">
-                        支払い方法
-                    </h2>
-
-                    <select name="payment_method" class="mt-[35px] ml-[90px] w-[265px] h-[31px] border border-gray-400">
-                        <option value="">選択してください</option>
-                        <option value="convenience_store">コンビニ払い</option>
-                        <option value="credit_card">カード払い</option>
-                    </select>
-                </div>
-
-                <hr class="border-black">
-
-                <!-- 配送先 -->
-                <div class="pt-[20px] pl-[35px] h-[190px]">
-                    <div class="flex items-center">
-                        <h2 class="text-[20px] font-bold">
-                            配送先
-                        </h2>
-
-                        <a href="{{ route('purchase.address.edit',$item) }}" 
-                            class="ml-[580px] text-[20px] text-[#0073CC] font-normal">
-                            変更する
-                        </a>
-                    </div>
-
-                    <div class="mt-[35px] ml-[60px] text-[20px] font-semibold">
-                        <p>〒 {{ $purchaseAddress['postal_code'] ?? Auth::user()->postal_code }}
-                        </p>
-                        <p class="mt-[10px]">
-                            {{ $purchaseAddress['address'] ?? Auth::user()->address }}
-                            {{ $purchaseAddress['building'] ?? Auth::user()->building }}
-                        </p>
-                    </div>
-                </div>
-
-                <hr class="border-black">
-            </div>
-
-            <!-- 右側 -->
-            <div class="w-[440px] h-[230px] border border-black">
-                <div>
-                    <div class="h-[115px] flex items-center border-b border-black">
-                        <div class="w-1/2 text-center text-[20px]">
-                            商品代金
+                    
+                        <hr class="mt-[50px] border-black">
+                    
+                        <!-- 支払い方法 -->
+                        <div class="pt-[20px] pl-[35px] h-[160px]">
+                            <h2 class="text-[20px] font-bold">
+                                支払い方法
+                            </h2>
+                    
+                            <select name="payment_method" class="mt-[35px] ml-[90px] w-[265px] h-[31px] border border-gray-400">
+                                <option value="">選択してください</option>
+                                <option value="1">コンビニ払い</option>
+                                <option value="2">カード払い</option>
+                            </select>
                         </div>
-                        <div class="w-1/2 text-center text-[24px]">
-                            ¥ {{ number_format($item->price) }}
+                    
+                        <hr class="border-black">
+                    
+                        <!-- 配送先 -->
+                        <div class="pt-[20px] pl-[35px] h-[190px]">
+                            <div class="flex items-center">
+                                <h2 class="text-[20px] font-bold">
+                                    配送先
+                                </h2>
+                    
+                                <a href="{{ route('purchase.address.edit', $item) }}"
+                                    class="ml-[580px] text-[20px] text-[#0073CC] font-normal">
+                                    変更する
+                                </a>
+                            </div>
+                    
+                            <div class="mt-[35px] ml-[60px] text-[20px] font-semibold">
+                                <p>〒 {{ $purchaseAddress['postal_code'] ?? Auth::user()->postal_code }}
+                                </p>
+                                <p class="mt-[10px]">
+                                    {{ $purchaseAddress['address'] ?? Auth::user()->address }}
+                                    {{ $purchaseAddress['building'] ?? Auth::user()->building }}
+                                </p>
+                            </div>
                         </div>
+                    
+                        <hr class="border-black">
                     </div>
-
-                    <div class="h-[115px] flex items-center">
-                        <div class="w-1/2 text-center text-[20px]">
-                            支払い方法
+                    
+                    <!-- 右側 -->
+                    <div class="w-[440px] h-[230px] border border-black">
+                        <div>
+                            <div class="h-[115px] flex items-center border-b border-black">
+                                <div class="w-1/2 text-center text-[20px]">
+                                    商品代金
+                                </div>
+                                <div class="w-1/2 text-center text-[24px]">
+                                    ¥ {{ number_format($item->price) }}
+                                </div>
+                            </div>
+                    
+                            <div class="h-[115px] flex items-center">
+                                <div class="w-1/2 text-center text-[20px]">
+                                    支払い方法
+                                </div>
+                                <div class="w-1/2 text-center text-[20px]">
+                                        コンビニ払い
+                                </div>
+                            </div>
                         </div>
-                        <div class="w-1/2 text-center text-[20px]">
-                            コンビニ払い
-                        </div>
-                    </div>
+                    
+                        <button type="submit" class="w-[440px]
+                                h-[60px]
+                                mt-[66px]
+                                bg-[#FF5555]
+                                rounded-[4px]
+                                text-white
+                                text-[26px]
+                                font-bold
+                                        ">
+                            購入する
+                        </button>
+                    </div>        
                 </div>
-
-                <button class="
-                        w-[440px]
-                        h-[60px]
-                        mt-[66px]
-                        bg-[#FF5555]
-                        rounded-[4px]
-                        text-white
-                        text-[26px]
-                        font-bold
-                    ">
-                    購入する
-                </button>
-            </div>
-
-        </div>
+        </form>
     </main>
 </body>
 

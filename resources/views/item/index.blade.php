@@ -86,17 +86,22 @@
         <div class="grid grid-cols-4 gap-x-[40px] gap-y-[70px]">
     
             @foreach ($items as $item)
-
                 <div class="w-[290px]">
-                    <div class="w-[290px] h-[290px] overflow-hidden rounded-[4px]">
+                    <div class="relative w-[290px] h-[290px] overflow-hidden rounded-[4px]">
                         <img src="{{ $item->image_path }}" alt="{{ $item->name }}" class="w-full h-full object-cover">
+                        @if ($item->purchase)
+                            <div class="absolute top-0 left-0 w-full h-full bg-black/40 flex items-center justify-center">
+                                <span class="text-white text-[40px] font-bold">
+                                    SOLD
+                                </span>
+                            </div>
+                        @endif
                     </div>
 
                     <p class="mt-[4px] w-[290px] h-[30px] text-[25px] font-normal leading-none">
                         {{ $item->name }}
                     </p>
                 </div>
-
             @endforeach
     
         </div>
