@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseAddressController;
 use App\Http\Controllers\PurchaseController;
 use Illuminate\Support\Facades\Route;
@@ -42,5 +43,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/purchase/{item}', [PurchaseController::class, 'store'])
         ->name('purchase.store');
+
+    Route::get('/mypage', [ProfileController::class, 'index'])
+        ->name('mypage.index');
 
 });
