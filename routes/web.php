@@ -47,4 +47,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/mypage', [ProfileController::class, 'index'])
         ->name('mypage.index');
 
+    Route::get('/mypage/profile', [ProfileController::class, 'edit'])
+        ->name('mypage.profile.edit');
+
+    Route::patch('/mypage/profile', [ProfileController::class, 'update'])
+        ->name('mypage.profile.update');
 });

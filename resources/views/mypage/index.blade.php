@@ -1,15 +1,3 @@
-<!DOCTYPE html>
-<html lang="ja">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>商品購入画面</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-
-<body>
-
     @extends('layouts.app')
     
     @section('content')
@@ -29,7 +17,7 @@
                     </h1>
                 </div>
 
-                <a href="/mypage.profile"
+                <a href="{{ route('mypage.profile.edit') }}"
                     class="w-[310px] h-[59px] border-2 border-[#FF5555] rounded-[10px] text-[#FF5555] text-[20px] font-bold flex items-center justify-center">
                     プロフィールを編集
                 </a>
@@ -76,7 +64,3 @@
             </section>
         </main>
     @endsection
-
-</body>
-
-</html>
