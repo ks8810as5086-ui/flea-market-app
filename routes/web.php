@@ -52,4 +52,10 @@ Route::middleware('auth')->group(function () {
 
     Route::patch('/mypage/profile', [ProfileController::class, 'update'])
         ->name('mypage.profile.update');
+
+    Route::get('/sell', [ItemController::class, 'create'])
+        ->name('item.create');
+
+    Route::post('/sell', [ItemController::class, 'store'])
+        ->name('item.store');
 });

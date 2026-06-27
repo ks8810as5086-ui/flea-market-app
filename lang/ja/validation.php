@@ -190,6 +190,12 @@ return [
         'email' => 'メールアドレス',
         'password' => 'パスワード',
         'name' => 'お名前',
+        'image_path' => '商品画像',
+        'categories' => 'カテゴリー',
+        'condition' => '商品の状態',
+        'name' => '商品名',
+        'description' => '商品の説明',
+        'price' => '販売価格',
     ],
 
 ];
