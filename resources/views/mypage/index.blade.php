@@ -1,6 +1,6 @@
-    @extends('layouts.app')
+@extends('layouts.app')
     
-    @section('content')
+@section('content')
         <main class="bg-white min-h-screen">
 
             <section class="max-w-[1017px] mx-auto pt-[68px] flex items-center justify-between">
@@ -45,8 +45,15 @@
                                 <div class="w-full">
                                     <div class="aspect-square bg-[#D9D9D9] overflow-hidden">
                                         @if ($item->image_path)
-                                            <img src="{{ $item->image_path }}" alt="{{ $item->name }}" class="w-full h-full object-cover">
-                                        @else
+                                            @if (str_starts_with($item->image_path, 'http'))
+                                                <img src="{{ $item->image_path }}"
+                                                    alt="{{ $item->name }}"
+                                                    class="w-full h-full object-cover">
+                                            @else
+                                                <img src="{{ asset('storage/' . $item->image_path) }}"
+                                                    alt="{{ $item->name }}"
+                                                    class="w-full h-full object-cover">
+                                            @endif
                                             <div class="w-full h-full flex items-center justify-center text-[24px]">
                                                 商品画像
                                             </div>
@@ -63,4 +70,4 @@
                 </div>
             </section>
         </main>
-    @endsection
+@endsection
