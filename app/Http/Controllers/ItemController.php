@@ -12,9 +12,43 @@ class ItemController extends Controller
 {
     public function index()
     {
-        $items = Item::with('purchase')->get();
+        $keyword = request('keyword');
+        $tab = request('tab');
 
-        return view('item.index', compact('items'));
+        if ($tab === 'mylist') {
+            if (Auth::check()) {
+                /** @var User $user */
+                $user = Auth::user();
+
+                $query = $user->favorites()
+                    ->with('item.purchase')
+                    ->get()
+                    ->pluck('item');
+                if (! empty($keyword)) {
+                    $items = $query->filter(function ($item) use ($keyword) {
+                        return str_contains($item->name, $keyword);
+                    });
+                } else {
+                    $items = $query;
+                }
+            } else {
+                $items = collect();
+            }
+        } else {
+            $query = Item::with('purchase');
+
+            if (Auth::check()) {
+                $query->where('user_id', '!=', Auth::id());
+            }
+
+            if (! empty($keyword)) {
+                $query->where('name', 'like', '%'.$keyword.'%');
+            }
+
+            $items = $query->get();
+        }
+
+        return view('item.index', compact('items', 'keyword', 'tab'));
     }
 
     public function show(Item $item)

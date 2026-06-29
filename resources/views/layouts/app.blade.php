@@ -19,10 +19,15 @@
             <img src="{{ asset('img/COACHTECH-logo.png') }}" alt="COACHTECH" class="w-[370px] h-[36px] object-contain">
 
             <!-- 検索 -->
-            <div class="w-[563px] h-[80px] flex items-center justify-center">
-                <input type="text" placeholder="なにをお探しですか？"
+            <form action="{{ route('item.index') }}" method="GET" class="w-[563px] h-[80px] flex items-center justify-center">
+            
+                @if (request('tab'))
+                    <input type="hidden" name="tab" value="{{ request('tab') }}">
+                @endif
+            
+                <input type="text" name="keyword" value="{{ request('keyword') }}" placeholder="なにをお探しですか？"
                     class="w-[500px] h-[50px] rounded-[5px] px-[31px] text-[24px] bg-white text-black placeholder:text-black focus:outline-none">
-            </div>
+            </form>
 
             <!-- ナビ -->
             <div class="w-[463px] flex items-center justify-end gap-[40px]">

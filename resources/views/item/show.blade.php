@@ -18,58 +18,63 @@
             </div>
             <!--右-->
             <div class="w-[690px] pt-[36px]">
-                
+
                 <div class="w-[570px] h-[273px]">
-                
+
                     <h1 class="text-[45px] font-bold leading-none">
                         {{ $item->name }}
                     </h1>
-                
+                    @if ($item->brand_name)
+                        <p class="text-[20px] mt-[8px] leading-none">
+                            {{ $item->brand_name }}
+                        </p>
+                    @endif
+
                     <p class="text-[20px] mt-[8px] leading-none">
                         {{ $item->brand }}
                     </p>
-                
+
                     <p class="mt-[28px] leading-none">
                         <span class="text-[30px]">¥</span>
                         <span class="text-[45px]">{{ number_format($item->price) }}</span>
                         <span class="text-[30px]">（税込）</span>
                     </p>
-                
+
                     <!-- いいね・コメント -->
                     <div class="w-[144px] h-[67px] mt-[40px] flex justify-between">
-                    
+
                         <!-- いいね -->
                         <form action="{{ route('favorite.toggle', $item) }}" method="POST">
                             @csrf
-                        
+
                             <button type="submit" class="flex flex-col items-center">
                                 <img src="{{ $item->isFavoriteBy(Auth::user())
     ? asset('img/heart-logo-pink.png')
     : asset('img/heart-logo-default.png') }}" alt="いいね" class="w-[50px] h-[50px]">
-                        
+
                                 <span class="text-[18px] leading-none">
                                     {{ $item->favorites_count }}
                                 </span>
                             </button>
                         </form>
-                    
+
                         <!-- コメント -->
                         <div class="flex flex-col items-center">
-                    
+
                             <img src="{{ asset('img/balloon-logo.png') }}" alt="コメント" class="w-[40px] h-[40px]">
-                    
+
                             <span class="text-[18px] leading-none mt-[4px]">
                                 {{ $item->comments_count  }}
                             </span>
-                    
+
                         </div>
-                    
+
                     </div>
-                
+
                 </div>
-                
+
                 <div class="w-[570px] h-[100px] flex items-center">
-                
+
                 @if ($item->purchase)
                     <button
                         disabled
@@ -83,29 +88,29 @@
                         購入手続きへ
                     </a>
                 @endif
-                
+
                 </div>
-                
+
                 <!-- 商品説明 -->
                 <div class="w-[559px] mt-[40px]">
-                
+
                     <h2 class="text-[36px] font-bold leading-none">
                         商品説明
                     </h2>
-                
+
                     <p class="mt-[40px] text-[24px] font-normal leading-normal">
                         {{ $item->description }}
                     </p>
-                
+
                 </div>
 
                 <!-- 商品情報 -->
                 <div class="w-[559px] mt-[60px]">
-                
+
                     <h2 class="text-[36px] font-bold">
                         商品情報
                     </h2>
-                
+
                     <!-- カテゴリー -->
                     <div class="flex gap-[16px]">
                         <span class="w-[214px] text-[24px] font-bold">
@@ -127,21 +132,21 @@
                     </div>
                     <!-- 商品状態 -->
                     <div class="flex items-center mt-[30px]">
-                    
+
                         <span class="w-[214px] text-[24px] font-bold">
                             商品の状態
                         </span>
-                    
+
                         <span class="text-[20px]">
                             {{ $item->condition_label }}
                         </span>
-                    
+
                     </div>
-                    
+
                 </div>
                 <!-- コメント -->
                 <div class="w-[570px] mt-[60px]">
-                
+
                     <h2 class="text-[36px] font-bold text-[#5F5F5F]">
                         コメント（{{ $item->comments_count }}）
                     </h2>
@@ -178,17 +183,17 @@
                         </div>
 
                     @endforeach
-                
+
                     </div>
                     <form action="{{ route('comment.store', $item) }}" method="POST">
                         @csrf
-                    
+
                         <!-- 商品へのコメント -->
                         <div class="mt-[50px]">
                             <p class="text-[28px] font-bold">
                                 商品へのコメント
                             </p>
-                    
+
                             <textarea name="comment" class="
                                     w-[570px]
                                     h-[246px]
@@ -201,14 +206,14 @@
                                     text-[20px]
                                     focus:outline-none
                                 ">{{ old('comment') }}</textarea>
-                    
+
                             @error('comment')
                                 <p class="mt-[8px] text-red-500 text-[16px]">
                                     {{ $message }}
                                 </p>
                             @enderror
                         </div>
-                    
+
                         <!-- コメント送信 -->
                         <div class="w-[570px] h-[100px] flex items-center">
                             <button type="submit" class="
