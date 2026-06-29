@@ -14,12 +14,8 @@
 
                 <div class="flex items-center gap-[40px]">
                     <div class="w-[150px] h-[150px] rounded-full bg-[#D9D9D9] overflow-hidden">
-                        @if ($item->image_path)
-                            @if (str_starts_with($item->image_path, 'http'))
-                                <img src="{{ $item->image_path }}" alt="{{ $item->name }}" class="w-full h-full object-cover">
-                            @else
-                                <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}" class="w-full h-full object-cover">
-                            @endif
+                        @if ($user->profile_image)
+                            <img src="{{ asset('storage/' . $user->profile_image) }}" alt="{{ $user->name }}" class="w-full h-full object-cover">
                         @endif
                     </div>
 

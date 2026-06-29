@@ -3,20 +3,20 @@
 @section('content')
     <div class="max-w-[1512px] mx-auto mt-[40px] border-b border-[#5F5F5F]">
         <div class="pl-[190px] flex gap-[100px] h-[47px] items-center">
-            <a href="#" class="text-[24px] font-bold leading-none text-red-600">
+            <a href="{{ route('item.index',['keyword' => request('keyword')]) }}" class="text-[24px] font-bold leading-none {{ request('tab') ==='mylist' ? 'text-[#5F5F5F]' : 'text-[#FF0000]' }} ">
             おすすめ
             </a>
 
-            <a href="#" class="text-[24px] font-bold leading-none text-[#5F5F5F]">
+            <a href="{{ route('item.index',['tab' => 'mylist', 'keyword' => request('keyword')]) }}" class="text-[24px] font-bold leading-none {{ request('tab') === 'mylist' ? 'text-[#FF0000]' : 'text-[#5F5F5F]' }} ">
             マイリスト
             </a>
         </div>
     </div>
 
     <main class="max-w-[1374px] mx-auto pt-[60px] pb-[40px] px-[20px]">
-    
+
         <div class="grid grid-cols-4 gap-x-[40px] gap-y-[70px]">
-    
+
             @foreach ($items as $item)
                 <a href="{{ route('item.show', $item) }}">
                     <div class="w-[290px]">
@@ -43,8 +43,8 @@
                     </div>
                 </a>
             @endforeach
-    
+
         </div>
-    
+
     </main>
 @endsection

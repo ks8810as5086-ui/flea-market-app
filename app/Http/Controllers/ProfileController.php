@@ -53,6 +53,6 @@ class ProfileController extends Controller
             'building' => $request->building,
         ]);
 
-        return redirect()->route('mypage.index');
+        return redirect()->route('item.index');
     }
 }
