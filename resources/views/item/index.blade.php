@@ -7,7 +7,7 @@
             おすすめ
             </a>
 
-            <a href="{{ route('item.index',['tab' => 'mylist', 'keyword' => request('keyword')]) }}" class="text-[24px] font-bold leading-none {{ request('tab') === 'mylist' ? 'text-[#FF0000]' : 'text-[#5F5F5F]' }} ">
+            <a href="{{ route('item.index',['tab' => 'mylist','keyword' => request('keyword')]) }}" class="text-[24px] font-bold leading-none {{ request('tab') === 'mylist' ? 'text-[#FF0000]' : 'text-[#5F5F5F]' }} ">
             マイリスト
             </a>
         </div>
