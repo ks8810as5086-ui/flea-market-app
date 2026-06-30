@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
 use Laravel\Fortify\Contracts\LoginResponse;
 use Laravel\Fortify\Contracts\RegisterResponse;
+use Laravel\Fortify\Contracts\VerifyEmailViewResponse;
 use Laravel\Fortify\Fortify;
 
 class FortifyServiceProvider extends ServiceProvider
@@ -44,12 +45,22 @@ class FortifyServiceProvider extends ServiceProvider
             return view('auth.login');
         });
 
+        $this->app->singleton(VerifyEmailViewResponse::class, function () {
+            return new class implements VerifyEmailViewResponse
+            {
+                public function toResponse($request)
+                {
+                    return response()->view('auth.verify-email');
+                }
+            };
+        });
+
         $this->app->singleton(RegisterResponse::class, function () {
             return new class implements RegisterResponse
             {
                 public function toResponse($request)
                 {
-                    return redirect()->route('mypage.profile.edit');
+                    return redirect()->route('verification.notice');
                 }
             };
         });
@@ -60,6 +71,10 @@ class FortifyServiceProvider extends ServiceProvider
                 public function toResponse($request)
                 {
                     $user = $request->user();
+
+                    if (! $user->hasVerifiedEmail()) {
+                        return redirect()->route('verification.notice');
+                    }
 
                     if (empty($user->postal_code) || empty($user->address)) {
                         return redirect()->route('mypage.profile.edit');
