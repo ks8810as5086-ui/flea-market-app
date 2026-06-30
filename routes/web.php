@@ -35,6 +35,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/purchase/{item}', [PurchaseController::class, 'show'])
         ->name('purchase.show');
 
+    Route::get('/purchase/{item}/success', [PurchaseController::class, 'success'])
+        ->name('purchase.success');
+
     Route::get('/purchase/address/{item}', [PurchaseAddressController::class, 'edit'])
         ->name('purchase.address.edit');
 
