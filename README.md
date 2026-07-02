@@ -1,4 +1,5 @@
 # COACHTECH フリマアプリ
+![トップ画面](docs/images/item-index.png)
 
 ## アプリケーション概要
 COACHTECH模擬案件として開発したフリマアプリです。
@@ -126,21 +127,72 @@ erDiagram
 ```
 
 ## 画面一覧
-| 画面名 | URL | View |
-|---|---|---|
-| 商品一覧画面 | `/` | `resources/views/items/index.blade.php` |
-| 商品一覧画面（マイリスト） | `/?tab=mylist` | `resources/views/items/index.blade.php` |
-| 会員登録画面 | `/register` | `resources/views/auth/register.blade.php` |
-| ログイン画面 | `/login` | `resources/views/auth/login.blade.php` |
-| メール認証誘導画面 | `/email/verify` | `resources/views/auth/verify-email.blade.php` |
-| 商品詳細画面 | `/item/{item_id}` | `resources/views/items/show.blade.php` |
-| 商品購入画面 | `/purchase/{item_id}` | `resources/views/purchases/show.blade.php` |
-| 配送先住所変更画面 | `/purchase/address/{item_id}` | `resources/views/purchases/address.blade.php` |
-| プロフィール画面 | `/mypage` | `resources/views/mypage/index.blade.php` |
-| プロフィール画面（購入商品一覧） | `/mypage?page=buy` | `resources/views/mypage/index.blade.php` |
-| プロフィール画面（出品商品一覧） | `/mypage?page=sell` | `resources/views/mypage/index.blade.php` |
-| プロフィール編集画面 | `/mypage/profile` | `resources/views/mypage/profile.blade.php` |
-| 商品出品画面 | `/sell` | `resources/views/items/create.blade.php` |
+### 画面遷移
+
+| 画面名称 | パス | HTTPメソッド | Controller | Action | 認証 | 説明 |
+|:---------|:-----|:------------:|:-----------|:-------|:----:|:-----|
+| 商品一覧画面（トップ画面） | `/` | GET | `ItemController` | `index` | 不要 | 商品一覧ページ |
+| 商品一覧画面（マイリスト） | `/?tab=mylist` | GET | `ItemController` | `index` | 不要 | マイリストページ |
+| 会員登録画面 | `/register` | GET | `RegisteredUserController` | `create` | 不要 | 会員登録ページ |
+| ログイン画面 | `/login` | GET | `AuthenticatedSessionController` | `create` | 不要 | ログインページ |
+| 商品詳細画面 | `/item/{item_id}` | GET | `ItemController` | `show` | 不要 | 商品詳細ページ |
+| 商品購入画面 | `/purchase/{item_id}` | GET | `PurchaseController` | `show` | 必要 | 商品購入ページ |
+| 住所変更画面 | `/purchase/address/{item_id}` | GET | `PurchaseAddressController` | `edit` | 必要 | 配送先住所変更ページ |
+| 商品出品画面 | `/sell` | GET | `ItemController` | `create` | 必要 | 商品出品ページ |
+| プロフィール画面 | `/mypage` | GET | `ProfileController` | `index` | 必要 | プロフィールページ |
+| プロフィール編集画面 | `/mypage/profile` | GET | `ProfileController` | `edit` | 必要 | プロフィール編集ページ |
+| プロフィール画面（購入商品一覧） | `/mypage?page=buy` | GET | `ProfileController` | `index` | 必要 | 購入した商品の一覧を表示 |
+| プロフィール画面（出品商品一覧） | `/mypage?page=sell` | GET | `ProfileController` | `index` | 必要 | 出品した商品の一覧を表示 |
+
+### View
+
+| 画面名称 | Bladeファイル |
+|:---------|:-------------|
+| 商品一覧画面（トップ画面） | `resources/views/item/index.blade.php` |
+| 会員登録画面 | `resources/views/auth/register.blade.php` |
+| ログイン画面 | `resources/views/auth/login.blade.php` |
+| メール認証画面 | `resources/views/auth/verify-email.blade.php` |
+| 商品詳細画面 | `resources/views/item/show.blade.php` |
+| 商品購入画面 | `resources/views/purchase/show.blade.php` |
+| 住所変更画面 | `resources/views/purchase/address.blade.php` |
+| 商品出品画面 | `resources/views/item/sell.blade.php` |
+| プロフィール画面 | `resources/views/mypage/index.blade.php` |
+| プロフィール編集画面 | `resources/views/mypage/profile.blade.php` |
+
+## スクリーンショット
+### 商品一覧画面(トップ画面)_マイリスト
+![商品一覧_マイリスト](docs/images/item-mylist.png)
+
+### 会員登録
+![会員登録](docs/images/register.png)
+
+### ログイン画面
+![ログイン](docs/images/login.png)
+
+### 商品詳細画面
+![商品詳細](docs/images/item-show.png)
+
+### 商品購入画面
+![商品購入](docs/images/purchase-show.png)
+
+### 住所変更画面
+![住所変更](docs/images/purchase-address.png)
+
+### 商品出品画面
+![商品出品](docs/images/item-sell.png)
+
+### プロフィール編集画面
+![プロフィール編集](docs/images/profile-edit.png)
+
+### プロフィール画面_購入した商品一覧
+![プロフィール画面_購入一覧](docs/images/mypage-buy.png)
+
+### プロフィール画面_出品した商品一覧
+![プロフィール画面_商品一覧](docs/images/mypage-sell.png)
+
+### メール認証画面
+![メール認証](docs/images/auth-email.png)
+
 
 ## 環境構築
 ### 1. リポジトリをクローン
@@ -233,10 +285,10 @@ flea-market-app/
 │   ├── js/
 │   └── views/
 │       ├── auth/
-│       ├── items/
+│       ├── item/
 │       ├── layouts/
 │       ├── mypage/
-│       └── purchases/
+│       └── purchase/
 ├── routes/
 │   └── web.php
 ├── storage/
